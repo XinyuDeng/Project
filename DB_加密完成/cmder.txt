@@ -1,0 +1,19 @@
+ grant all privileges on insurance.* to 'webuser'@'localhost' identified by 'secretpassword';
+ use insurance;
+
+CREATE TABLE customer (
+passenger_id INT(11) NOT NULL AUTO_INCREMENT,
+first_name VARCHAR(30) NOT NULL,
+last_name VARCHAR(30) NOT NULL,
+password VARCHAR(30) NOT NULL,
+nationality VARCHAR(30) NOT NULL,
+gender VARCHAR(15) NOT NULL,
+addr_stree VARCHAR(30) NOT NULL,
+addr_city VARCHAR(30) NOT NULL,
+addr_state CHAR(2) NOT NULL,
+zipcode INT NOT NULL,
+email VARCHAR(50) NOT NULL,
+contact_num VARCHAR(30) NOT NULL,
+primary key (passenger_id)
+);
+insert into customer (first_name, last_name, password,nationality,gender, addr_stree, addr_city,addr_state,zipcode,email,contact_num) values ('aa','aa','aa','aa','m','aa','aa','aa',11201, 'aa',11111);
