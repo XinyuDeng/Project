@@ -1,0 +1,8 @@
+1. 为manager, customer, org, indi, author添加password列
+2. 所有含pk的表将pk改为自增
+3. 将cus_room的date, timeslot, room_id设为联合主键
+4. 为 manager, customer, org, indi, author都添加一个hash表分别为man_hash, cus_hash, org_hash, indi_hash, aur_hash, 三列分别为(cus_id, password, hash)其中hash是一个60 个字符的字符串
+5. 将外键前的表名全删掉
+6. rental_trigger需要改动
+sponsor_indi_trigger: indi表中插入记录时，trigger在sponsor表中自动生成一条记录
+sponsor_org_tigger: org表中插入记录时，trigger在org表中自动生成一条记录
