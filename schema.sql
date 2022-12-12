@@ -210,7 +210,7 @@ CREATE TABLE semi_author (
 CREATE TABLE semi_spon (
     event_id   BIGINT NOT NULL,
     spon_id BIGINT NOT NULL,
-    spon_amou       DECIMAL(20) NOT NULL,
+    amount       DECIMAL(20) NOT NULL,
     primary key(event_id)
 );
 
