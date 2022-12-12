@@ -33,3 +33,28 @@ BEGIN
     END IF;
 END;
 //
+
+DROP TRIGGER IF EXISTS sponsor_indi_trigger; 
+
+DELIMITER //
+
+CREATE TRIGGER sponsor_indi_trigger AFTER
+    INSERT ON indi
+    FOR EACH ROW
+BEGIN
+	insert into sponsor(spon_type) values('I');
+END;
+//
+
+
+DROP TRIGGER IF EXISTS sponsor_org_tigger; 
+
+DELIMITER //
+
+CREATE TRIGGER sponsor_org_tigger AFTER
+    INSERT ON org
+    FOR EACH ROW
+BEGIN
+	insert into sponsor(spon_type) values('O');
+END;
+//
