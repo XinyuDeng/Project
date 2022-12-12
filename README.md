@@ -18,3 +18,12 @@ update notes:
 !!!3. 我们没有manager表
 4. 将cus_room的date, timeslot, room_room_id设为联合主键
 5. 密码hash表暂时未更新。对需求理解不清晰
+
+最新
+1. 将所有表中的属性名字已经改到位，表名均已删除，调整了自增的属性，所有表中只有主键自增
+2. 添加了manager表
+3. 需要添加cus_hash, manager_hash, indi_hash, org_hash, author_hash表，每张表均有三列，分别为
+customer_id
+password
+hash
+其中customer_id 为对应的customer表中的主键，password为customer中的password，hash设为一个60长度的varchar，其余同理
