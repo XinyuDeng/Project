@@ -28,3 +28,5 @@ password
 hash
 其中customer_id 为对应的customer表中的主键，password为customer中的password，hash设为一个60长度的varchar，其余同理
 4. 将改动完成的schema在workbench上跑起来，插入数据进行测试
+5. 在运行schema之前记得检查一遍：  
+只有customer， author， indi， org， 等一些表的主键才有auto_incremental， 即插入记录时主键自动生成，一定要是主键，不能是外键
