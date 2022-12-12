@@ -1,26 +1,27 @@
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE author (
-    aur_id      BIGINT NOT NULL,
+    aur_id      BIGINT NOT NULL auto_increment,
     aur_fname   VARCHAR(20) NOT NULL,
     aur_lname   VARCHAR(20) NOT NULL,
     aur_street  VARCHAR(20) NOT NULL,
     aur_city    VARCHAR(30) NOT NULL,
     aur_state   VARCHAR(30) NOT NULL,
     aur_country VARCHAR(20) NOT NULL,
-    aur_email   VARCHAR(50) NOT NULL
+    aur_email   VARCHAR(50) NOT NULL,
+    aur_password varchar(30) not null
 );
 
 ALTER TABLE author ADD CONSTRAINT author_pk PRIMARY KEY ( aur_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE author_book (
-    author_aur_id BIGINT NOT NULL,
-    book_book_id  BIGINT NOT NULL
+    author_aur_id BIGINT NOT NULL auto_increment,
+    book_book_id  BIGINT NOT NULL auto_increment
 );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE book (
-    book_id   BIGINT NOT NULL,
+    book_id   BIGINT NOT NULL auto_increment,
     book_name VARCHAR(30) NOT NULL,
     topic     VARCHAR(30) NOT NULL
 );
@@ -29,7 +30,7 @@ ALTER TABLE book ADD CONSTRAINT book_pk PRIMARY KEY ( book_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE copy (
-    copy_id      BIGINT NOT NULL,
+    copy_id      BIGINT NOT NULL auto_increment,
     status       VARCHAR(10) NOT NULL,
     book_book_id BIGINT NOT NULL
 );
@@ -38,7 +39,7 @@ ALTER TABLE copy ADD CONSTRAINT copy_pk PRIMARY KEY ( copy_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE cus_exhi (
-    customer_cus_id BIGINT NOT NULL,
+    customer_cus_id BIGINT NOT NULL auto_increment,
     exhi_event_id   BIGINT NOT NULL,
     registration_id DECIMAL(20) NOT NULL
 );
@@ -47,10 +48,10 @@ ALTER TABLE cus_exhi ADD CONSTRAINT cus_exhi_pk PRIMARY KEY ( registration_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE cus_rental (
-    customer_cus_id    BIGINT NOT NULL,
-    invoice_invoice_id BIGINT NOT NULL,
-    copy_copy_id       BIGINT NOT NULL,
-    ren_id             BIGINT NOT NULL,
+    customer_cus_id    BIGINT NOT NULL auto_increment,
+    invoice_invoice_id BIGINT NOT NULL auto_increment,
+    copy_copy_id       BIGINT NOT NULL auto_increment,
+    ren_id             BIGINT NOT NULL auto_increment,
     ren_status         NCHAR(1) NOT NULL,
     star_date          DATETIME NOT NULL,
     expe_date          DATETIME NOT NULL,
@@ -73,22 +74,25 @@ CREATE TABLE cus_room (
     customer_cus_id BIGINT NOT NULL
 );
 
+ALTER TABLE cus_room ADD CONSTRAINT cus_room_pk PRIMARY KEY (`DATE`, timeslot, room_room_id);
+
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE customer (
-    cus_id    BIGINT NOT NULL,
+    cus_id    BIGINT NOT NULL auto_increment,
     cus_fname VARCHAR(20) NOT NULL,
     cur_lname VARCHAR(20) NOT NULL,
     cus_phone DECIMAL(20) NOT NULL,
     cus_email VARCHAR(50) NOT NULL,
     id_type   VARCHAR(15) NOT NULL,
-    id_number DECIMAL(20) NOT NULL
+    id_number DECIMAL(20) NOT NULL,
+    cus_password VARCHAR(30) NOT NULL
 );
 
 ALTER TABLE customer ADD CONSTRAINT customer_pk PRIMARY KEY ( cus_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE event (
-    event_id   BIGINT NOT NULL,
+    event_id   BIGINT NOT NULL auto_increment,
     event_name VARCHAR(30) NOT NULL,
     event_type VARCHAR(1) NOT NULL,
     start_date DATETIME NOT NULL,
@@ -102,7 +106,7 @@ ALTER TABLE event ADD CONSTRAINT event_pk PRIMARY KEY ( event_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE exhi (
-    event_id BIGINT NOT NULL,
+    event_id BIGINT NOT NULL auto_increment,
     exp      DECIMAL(20) NOT NULL
 );
 
@@ -110,16 +114,17 @@ ALTER TABLE exhi ADD CONSTRAINT exhi_pk PRIMARY KEY ( event_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE indi (
-    spon_id BIGINT,
+    spon_id BIGINT auto_increment,
     fname   VARCHAR(15) NOT NULL,
-    lname   VARCHAR(15) NOT NULL
+    lname   VARCHAR(15) NOT NULL,
+    indi_password VARCHAR(30) NOT NULL
 );
 
 ALTER TABLE indi ADD CONSTRAINT indi_pk PRIMARY KEY ( spon_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE invoice (
-    invoice_id        BIGINT NOT NULL,
+    invoice_id        BIGINT NOT NULL auto_increment,
     invoice_date      DATETIME NOT NULL,
     invoice_amount    DECIMAL(20, 2) NOT NULL,
     cus_rental_ren_id BIGINT NOT NULL
@@ -135,28 +140,29 @@ ALTER TABLE invoice ADD CONSTRAINT invoice_pk PRIMARY KEY ( invoice_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE org (
-    spon_id BIGINT,
-    name    VARCHAR(30) NOT NULL
+    spon_id BIGINT auto_increment,
+    name    VARCHAR(30) NOT NULL,
+    org_password VARCHAR(30) NOT NULL
 );
 
 ALTER TABLE org ADD CONSTRAINT org_pk PRIMARY KEY ( spon_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE payment (
-    payment_id         BIGINT NOT NULL,
+    payment_id         BIGINT NOT NULL auto_increment,
     payment_date       DATETIME NOT NULL,
     payment_amount     DECIMAL(20, 2) NOT NULL,
     payment_method     VARCHAR(15) NOT NULL,
     acc_fname          VARCHAR(15) NOT NULL,
     acc_lname          VARCHAR(15) NOT NULL,
-    invoice_invoice_id BIGINT NOT NULL
+    invoice_invoice_id BIGINT NOT NULL auto_increment
 );
 
 ALTER TABLE payment ADD CONSTRAINT payment_pk PRIMARY KEY ( payment_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE room (
-    room_id  BIGINT NOT NULL,
+    room_id  BIGINT NOT NULL auto_increment,
     capacity BIGINT NOT NULL
 );
 
@@ -164,30 +170,30 @@ ALTER TABLE room ADD CONSTRAINT room_pk PRIMARY KEY ( room_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE semi (
-    event_id BIGINT NOT NULL
+    event_id BIGINT NOT NULL auto_increment
 );
 
 ALTER TABLE semi ADD CONSTRAINT semi_pk PRIMARY KEY ( event_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE semi_author (
-    semi_event_id BIGINT NOT NULL,
-    invitation_id DECIMAL(20) NOT NULL,
-    author_aur_id BIGINT NOT NULL
+    semi_event_id BIGINT NOT NULL auto_increment,
+    invitation_id DECIMAL(20) NOT NULL auto_increment,
+    author_aur_id BIGINT NOT NULL auto_increment
 );
 
 ALTER TABLE semi_author ADD CONSTRAINT semi_author_pk PRIMARY KEY ( invitation_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE semi_spon (
-    semi_event_id   BIGINT NOT NULL,
-    sponsor_spon_id BIGINT NOT NULL,
+    semi_event_id   BIGINT NOT NULL auto_increment,
+    sponsor_spon_id BIGINT NOT NULL auto_increment,
     spon_amou       DECIMAL(20) NOT NULL
 );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE sponsor (
-    spon_id   BIGINT NOT NULL,
+    spon_id   BIGINT NOT NULL auto_increment,
     spon_type VARCHAR(1) NOT NULL
 );
 
