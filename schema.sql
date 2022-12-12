@@ -110,7 +110,7 @@ ALTER TABLE exhi ADD CONSTRAINT exhi_pk PRIMARY KEY ( event_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE indi (
-    spon_id BIGINT NOT NULL,
+    spon_id BIGINT,
     fname   VARCHAR(15) NOT NULL,
     lname   VARCHAR(15) NOT NULL
 );
@@ -135,7 +135,7 @@ ALTER TABLE invoice ADD CONSTRAINT invoice_pk PRIMARY KEY ( invoice_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE org (
-    spon_id BIGINT NOT NULL,
+    spon_id BIGINT,
     name    VARCHAR(30) NOT NULL
 );
 
