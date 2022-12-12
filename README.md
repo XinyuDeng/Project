@@ -27,3 +27,4 @@ customer_id
 password
 hash
 其中customer_id 为对应的customer表中的主键，password为customer中的password，hash设为一个60长度的varchar，其余同理
+4. 将改动完成的schema在workbench上跑起来，插入数据进行测试
