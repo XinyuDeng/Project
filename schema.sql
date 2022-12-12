@@ -1,4 +1,10 @@
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
+CREATE TABLE manager(
+    user_name   VARCHAR(20) NOT NULL,
+    password varchar(30) not null
+);
+
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE author (
     aur_id      BIGINT NOT NULL auto_increment,
     first_name   VARCHAR(20) NOT NULL,
