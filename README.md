@@ -17,7 +17,6 @@ update notes:
 2. 为customer, org, indi, author添加password列
 !!!3. 我们没有manager表
 4. 将cus_room的date, timeslot, room_room_id设为联合主键
-5. 密码hash表暂时未更新。对需求理解不清晰
 
 最新
 1. 将所有表中的属性名字已经改到位，表名均已删除，调整了自增的属性，所有表中只有主键自增
