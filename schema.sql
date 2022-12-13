@@ -216,7 +216,7 @@ CREATE TABLE semi_spon (
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 CREATE TABLE sponsor (
-    spon_id   BIGINT NOT NULL auto_increment,
+    spon_id   BIGINT NOT NULL,
     spon_type VARCHAR(1) NOT NULL,
     primary key(spon_id)
 );
