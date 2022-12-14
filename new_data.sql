@@ -1,5 +1,3 @@
-
-
 insert into customer (first_name, last_name, phone, email, id_type, id_number, cus_pass) values
 	('Katherine', 'Lewis', 3254561245, 'katherinesdsd@yahoo.com', 'SSN', 128563729, '123456'),
     ('Julian', 'Palmer', 4242345367, 'juliansdsd@yahoo.com', 'SSN', 424234567, '123456'),
@@ -296,8 +294,7 @@ SELECT * FROM event;
 SELECT * FROM semi;
 */
 
-
-
+INSERT INTO manager VALUES ('admin', 'password');
 
 
 
