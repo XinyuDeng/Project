@@ -6,3 +6,4 @@
 6. rental_trigger需要改动
 sponsor_indi_trigger: indi表中插入记录时，trigger在sponsor表中自动生成一条记录
 sponsor_org_tigger: org表中插入记录时，trigger在org表中自动生成一条记录
+7. 更改customer表中的列名（first_name, last_name, password, phone, email, id_type, id_num）

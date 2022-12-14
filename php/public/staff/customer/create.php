@@ -25,5 +25,5 @@ if(is_post_request()) {
 }else{
     redirect_to(url_for('/staff/customer/new.php'));
 }
-redirect_to(url_for('/staff/customer/new.php'));
+
 ?>

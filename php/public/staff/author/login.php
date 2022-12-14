@@ -2,7 +2,7 @@
 
 require_once('../../../private/initialize.php');
 if(!isset($_POST['first_name'])) {
-    redirect_to(url_for('/staff/customer/login_ui.php'));
+    redirect_to(url_for('/staff/author/login_ui.php'));
 }
 $first_name = $_POST['first_name'];
 $password = $_POST['password'];
@@ -12,14 +12,14 @@ if(is_post_request()) {
 //           $sql = "select * from customer where first_name = '$first_name' and password='$passowrd'";//检测数据库是否有对应的username和password的sql
 //           $result = mysqli_query($db,$sql);
 //           $customer_id = $_GET['id'];
-        $customer1 = find_customer_by_firstname($first_name);
+        $author1 = find_author_by_firstname($first_name);
 
-        $hash = get_cus_hash($customer1);
+        $hash = get_aur_hash($author1);
         if (password_verify($password, $hash)) {
-            $customer2 = find_customer_by_password($password);
-            if ($customer1 == $customer2){
+            $author2 = find_author_by_password($password);
+            if ($author1 == $author2){
 
-                redirect_to(url_for('/staff/customer/show.php?id=' . h(u($customer1['customer_id']))));//如果成功跳转至welcome.html页面
+                redirect_to(url_for('/staff/author/show.php?id=' . h(u($author1['aur_id']))));//如果成功跳转至welcome.html页面
             }
             else{
                 echo "Wrong first_name or password!";

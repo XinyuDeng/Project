@@ -67,19 +67,19 @@ mysqli_free_result($customer_set);
                 </dl>
                 <dl>
                     <dt>Phone:</dt>
-                    <dd><input type="text" name="nationality" value="<?php echo h($customer['phone']); ?>" /></dd>
+                    <dd><input type="text" name="phone" value="<?php echo h($customer['phone']); ?>" /></dd>
                 </dl>
                 <dl>
                     <dt>Email:</dt>
-                    <dd><input type="text" name="gender" value="<?php echo h($customer['email']); ?>" /></dd>
+                    <dd><input type="text" name="email" value="<?php echo h($customer['email']); ?>" /></dd>
                 </dl>
                 <dl>
                     <dt>ID_type:</dt>
-                    <dd><input type="text" name="addr_city" value="<?php echo h($customer['id_type']); ?>" /></dd>
+                    <dd><input type="text" name="id_type" value="<?php echo h($customer['id_type']); ?>" /></dd>
                 </dl>
                 <dl>
                     <dt>ID_num:</dt>
-                    <dd><input type="text" name="addr_state" value="<?php echo h($customer['id_num']); ?>" /></dd>
+                    <dd><input type="text" name="id_num" value="<?php echo h($customer['id_num']); ?>" /></dd>
                 </dl>
                 <div id="operations">
                     <input type="submit" value="Create customer" />

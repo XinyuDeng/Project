@@ -10,7 +10,8 @@
                 <li><a href="<?php echo url_for('/staff/manager/login_ui.php'); ?>">Manager</a></li>
                 <li><a href="<?php echo url_for('/staff/customer/login_ui.php'); ?>">Customer</a></li>
                 <li><a href="<?php echo url_for('/staff/author/login_ui.php'); ?>">Author</a></li>
-                <li><a href="<?php echo url_for('/staff/sponsor/login_ui.php'); ?>">Sponsor</a></li>
+                <li><a href="<?php echo url_for('/staff/indi/login_ui.php'); ?>">Individual</a></li>
+                <li><a href="<?php echo url_for('/staff/org/login_ui.php'); ?>">Organization</a></li>
             </ul>
         </div>
 

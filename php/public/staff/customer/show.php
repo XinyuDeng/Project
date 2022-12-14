@@ -5,10 +5,11 @@
 $customer_id = $_GET['id'] ?? '1'; // PHP > 7.0
 $customer = find_customer_by_id($customer_id);
 
-$record = find_record_by_id($customer_id);
+$booklist = find_record_by_customer($customer);
 
-$invoice = find_invoice_by_id($customer_id);
+$invoice = find_invoice_by_customer_id($customer_id);
 
+$balance = get_balance($customer);
 ?>
 
 <?php $page_title = 'Show Customer'; ?>
@@ -47,46 +48,48 @@ $invoice = find_invoice_by_id($customer_id);
 
     <table class="list">
         <tr>
-            <th>insurance name</th>
-            <th>passenger first name</th>
-            <th>passenger last name</th>
-            <th>flight</th>
+            <th>customer_id</th>
+            <th>room_id</th>
+            <th>date</th>
+            <th>timeslot</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
 
-        <?php while($record = mysqli_fetch_assoc($shoplist)) { ?>
+        <?php while($record = mysqli_fetch_assoc($booklist)) { ?>
             <tr>
-                <td><?php echo h($record['insur_name']); ?></td>
-                <td><?php echo h($record['pfname']); ?></td>
-                <td><?php echo h($record['plname']); ?></td>
-                <td><?php echo h($record['flight']); ?></td>
-                <td><a class="action" href="<?php echo url_for('/insurance_plan/edit.php?id=' . h(u($record['id']))); ?>">Edit</a></td>
-                <td><a class="action" href="<?php echo url_for('/insurance_plan/delete.php?id=' . h(u($record['id']))); ?>">Delete</a></td>
+                <td><?php echo h($record['customer_id']); ?></td>
+                <td><?php echo h($record['room_id']); ?></td>
+                <td><?php echo h($record['date']); ?></td>
+                <td><?php echo h($record['timeslot']); ?></td>
+                <td><a class="action" href="<?php echo url_for('/staff/services/room/edit.php?id=' . h(u($record['customer_id']))); ?>">Edit</a></td>
+                <td><a class="action" href="<?php echo url_for('/staff/services/room/delete.php?id=' . h(u($record['customer_id']))); ?>">Delete</a></td>
             </tr>
         <?php } ?>
 
     </table>
 
     <ul>
-        <li><a href="<?php echo url_for('/insurance_plan/create.php'); ?>">Shop Insurance</a></li>
+        <li><a href="<?php echo url_for('/staff/services/room/create.php'); ?>">Book Room</a></li>
     </ul>
 
     <table class="list">
         <tr>
-            <th>invoice number</th>
-            <th>invoice date</th>
-            <th>amount</th>
+            <th>invoice_id</th>
+            <th>ren_id</th>
+            <th>invoice_date</th>
+            <th>invoice_amount</th>
             <th>&nbsp;</th>
         </tr>
 
         <?php while($record_inv = mysqli_fetch_assoc($invoice)) { ?>
             <tr>
-                <td><?php echo h($record_inv['invoice_num']); ?></td>
+                <td><?php echo h($record_inv['invoice_id']); ?></td>
+                <td><?php echo h($record_inv['ren_id']); ?></td>
                 <td><?php echo h($record_inv['invoice_date']); ?></td>
                 <td><?php echo h($record_inv['invoice_amount']); ?></td>
                 <td><a class="action" href="<?php echo url_for('/invoice/show.php?id='
-                        . h(u($record_inv['invoice_num']))); ?>">View</a></td>
+                        . h(u($record_inv['invoice_id']))); ?>">View</a></td>
             </tr>
         <?php } ?>
     </table>
@@ -101,4 +104,4 @@ $invoice = find_invoice_by_id($customer_id);
 
 </div>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>customer/show.php?id=' . $new_id));
+<?php include(SHARED_PATH . '/staff_footer.php'); ?>c

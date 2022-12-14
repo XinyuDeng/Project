@@ -1,25 +1,25 @@
 <?php
 
 require_once('../../../private/initialize.php');
-if(!isset($_POST['first_name'])) {
-    redirect_to(url_for('/staff/customer/login_ui.php'));
+if(!isset($_POST['name'])) {
+    redirect_to(url_for('/staff/org/login_ui.php'));
 }
-$first_name = $_POST['first_name'];
+$name = $_POST['name'];
 $password = $_POST['password'];
 // echo ($hash);
 if(is_post_request()) {
-    if ($first_name && $password){
+    if ($name && $password){
 //           $sql = "select * from customer where first_name = '$first_name' and password='$passowrd'";//检测数据库是否有对应的username和password的sql
 //           $result = mysqli_query($db,$sql);
 //           $customer_id = $_GET['id'];
-        $customer1 = find_customer_by_firstname($first_name);
+        $org1 = find_organization_by_name($name);
 
-        $hash = get_cus_hash($customer1);
+        $hash = get_org_hash($org1);
         if (password_verify($password, $hash)) {
-            $customer2 = find_customer_by_password($password);
-            if ($customer1 == $customer2){
+            $org2 = find_organization_by_password($password);
+            if ($org1 == $org2){
 
-                redirect_to(url_for('/staff/customer/show.php?id=' . h(u($customer1['customer_id']))));//如果成功跳转至welcome.html页面
+                redirect_to(url_for('/staff/org/show.php?id=' . h(u($org1['spon_id']))));//如果成功跳转至welcome.html页面
             }
             else{
                 echo "Wrong first_name or password!";

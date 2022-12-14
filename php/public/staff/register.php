@@ -9,7 +9,8 @@
             <ul>
                 <li><a href="<?php echo url_for('/staff/customer/create.php'); ?>">Customer</a></li>
                 <li><a href="<?php echo url_for('/staff/author/create.php'); ?>">Author</a></li>
-                <li><a href="<?php echo url_for('/staff/sponsor/create.php'); ?>">Sponsor</a></li>
+                <li><a href="<?php echo url_for('/staff/indi/create.php'); ?>">Individual</a></li>
+                <li><a href="<?php echo url_for('/staff/org/create.php'); ?>">Organization</a></li>
             </ul>
         </div>
 
