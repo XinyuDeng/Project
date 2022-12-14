@@ -1,12 +1,11 @@
 <?php require_once('../../../private/initialize.php'); ?>
 <?php $page_title = 'Manager Login'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
-
     <!doctype html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>LOGIN</title>
     </head>
     <body>
     <form name="login" action="login.php" method="post">

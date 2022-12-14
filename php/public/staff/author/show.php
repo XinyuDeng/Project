@@ -4,14 +4,13 @@
 // $id = isset($_GET['id']) ? $_GET['id'] : '1';
 $aur_id = $_GET['id'] ?? '1'; // PHP > 7.0
 $author = find_author_by_id($aur_id);
-
 $semi_aur = find_semi_aur_by_id($aur_id);
 
 $aur_book = find_aur_book_by_id($aur_id);
 
 
 ?>
-
+<?php //print_r($author); ?>
 <?php $page_title = 'Show Author'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
@@ -19,7 +18,7 @@ $aur_book = find_aur_book_by_id($aur_id);
 
     <div class="Customer show">
 
-        <h1>Individual: <?php echo h($author['first_name']);echo " "; echo h($author['last_name']); ?></h1>
+        <h1>Dear Author: <?php echo h($author['first_name']);echo " "; echo h($author['last_name']); ?></h1>
 
         <div class="attributes">
             <dl>
@@ -79,6 +78,7 @@ $aur_book = find_aur_book_by_id($aur_id);
         <tr>
             <th>aur_id</th>
             <th>book_id</th>
+            <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
 

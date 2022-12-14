@@ -17,6 +17,8 @@ if(is_post_request()) {
         $hash = get_aur_hash($author1);
         if (password_verify($password, $hash)) {
             $author2 = find_author_by_password($password);
+//            print_r($author2);
+//            print_r($author1);
             if ($author1 == $author2){
 
                 redirect_to(url_for('/staff/author/show.php?id=' . h(u($author1['aur_id']))));//如果成功跳转至welcome.html页面

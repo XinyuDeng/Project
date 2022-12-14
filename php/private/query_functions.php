@@ -63,7 +63,7 @@
         }
 
         $sql = "INSERT INTO customer ";
-        $sql .= "(first_name, last_name,password, phone, email, id_type, id_num) ";
+        $sql .= "(first_name, last_name, cus_pass, phone, email, id_type, id_number) ";
         $sql .= "VALUES (";
         $sql .= "'" . db_escape($db, $customer['first_name']) . "',";
         $sql .= "'" . db_escape($db, $customer['last_name']) . "',";
@@ -71,9 +71,8 @@
         $sql .= "'" . db_escape($db, $customer['phone']) . "',";
         $sql .= "'" . db_escape($db, $customer['email']) . "',";
         $sql .= "'" . db_escape($db, $customer['id_type']) . "',";
-        $sql .= "'" . db_escape($db, $customer['id_num']) . "'";
-        $sql .= "));";
-        //最后一个没有逗号
+        $sql .= "'" . db_escape($db, $customer['id_number']) . "'";
+        $sql .= ");";
 
 
         $result = mysqli_query($db, $sql);
@@ -97,7 +96,7 @@
         }
 
         $sql = "INSERT INTO author ";
-        $sql .= "(first_name, last_name,password, street, city, state, country, email) ";
+        $sql .= "(first_name, last_name, aur_pass, street, city, state, country, email) ";
         $sql .= "VALUES (";
         $sql .= "'" . db_escape($db, $author['first_name']) . "',";
         $sql .= "'" . db_escape($db, $author['last_name']) . "',";
@@ -107,7 +106,7 @@
         $sql .= "'" . db_escape($db, $author['state']) . "',";
         $sql .= "'" . db_escape($db, $author['country']) . "',";
         $sql .= "'" . db_escape($db, $author['email']) . "'";
-        $sql .= "));";
+        $sql .= ");";
         //最后一个没有逗号
 
 
@@ -211,14 +210,14 @@
         }
 
         $sql = "INSERT INTO cus_room ";
-        $sql .= "(customer_id, room_id,date, timeslot) ";
+        $sql .= "(customer_id, room_id, date, timeslot) ";
         $sql .= "VALUES (";
         $sql .= "'" . db_escape($db, $cus_room['customer_id']) . "',";
         $sql .= "'" . db_escape($db, $cus_room['room_id']) . "',";
         $sql .= "'" . db_escape($db, $cus_room['date']) . "',";
-        $sql .= "'" . db_escape($db, $cus_room['timeslot']) . "',";
+        $sql .= "'" . db_escape($db, $cus_room['timeslot']) . "'";
 
-        $sql .= "));";
+        $sql .= ");";
         //最后一个没有逗号
 
 
@@ -277,6 +276,10 @@
             $errors[] = "Last name cannot be blank.";
         }
     //
+        if(is_blank($customer['cus_pass'])) {
+            $errors[] = "Password cannot be blank.";
+        }
+
         if(is_blank($customer['phone'])) {
             $errors[] = "Phone cannot be blank.";
         }
@@ -289,7 +292,7 @@
             $errors[] = "ID_type cannot be blank.";
         }
 
-        if(is_blank($customer['id_num'])) {
+        if(is_blank($customer['id_number'])) {
             $errors[] = "ID_num cannot be blank.";
         }
 
@@ -413,8 +416,8 @@
     function insert_cus_hash($id, $password, $hash) {
         global $db;
 
-        $sql = "INSERT INTO cus_hash ";
-        $sql .= "(customer_id, password, hash) ";
+        $sql = "INSERT INTO customer_hash ";
+        $sql .= "(customer_id, cus_pass, cus_hash) ";
         $sql .= "VALUES (";
         $sql .= "'" . db_escape($db, $id) . "', ";
         $sql .= "'" . db_escape($db, $password) . "', ";
@@ -434,8 +437,8 @@
     function insert_aur_hash($id, $password, $hash){
         global $db;
 
-        $sql = "INSERT INTO aur_hash ";
-        $sql .= "(aur_id, password, hash) ";
+        $sql = "INSERT INTO author_hash ";
+        $sql .= "(aur_id, aur_pass, aur_hash) ";
         $sql .= "VALUES (";
         $sql .= "'" . db_escape($db, $id) . "', ";
         $sql .= "'" . db_escape($db, $password) . "', ";
@@ -510,27 +513,27 @@ function find_customer_by_firstname($first_name) {
 function get_cus_hash($customer) {
     global $db;
 
-    $sql = "SELECT * FROM cus_hash ";
+    $sql = "SELECT * FROM customer_hash ";
     $sql .= "WHERE customer_id='" . db_escape($db, $customer['customer_id']) . "';";
     // echo $sql;
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     $cst_passhash = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
-    return $cst_passhash['hash']; // returns hash
+    return $cst_passhash['cus_hash']; // returns hash
 }
 
     function get_aur_hash($author){
         global $db;
 
-        $sql = "SELECT * FROM aur_hash ";
-        $sql .= "WHERE aur_id='" . db_escape($db, $author['customer_id']) . "';";
+        $sql = "SELECT * FROM author_hash ";
+        $sql .= "WHERE aur_id='" . db_escape($db, $author['aur_id']) . "';";
         // echo $sql;
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);
         $aur_passhash = mysqli_fetch_assoc($result);
         mysqli_free_result($result);
-        return $aur_passhash['hash']; // returns hash
+        return $aur_passhash['aur_hash']; // returns hash
     }
 
     function get_indi_hash($indi){
@@ -563,7 +566,7 @@ function find_customer_by_password($password) {
     global $db;
 
     $sql = "SELECT * FROM customer ";
-    $sql .= "WHERE password='" . db_escape($db, $password) . "';";
+    $sql .= "WHERE cus_pass='" . db_escape($db, $password) . "';";
     // echo $sql;
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -576,7 +579,7 @@ function find_author_by_password($password){
     global $db;
 
     $sql = "SELECT * FROM author ";
-    $sql .= "WHERE password='" . db_escape($db, $password) . "';";
+    $sql .= "WHERE aur_pass='" . db_escape($db, $password) . "';";
     // echo $sql;
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -678,11 +681,11 @@ function find_organization_by_id($spon_id){
 
 
 
-    function find_record_by_id($customer_id) {
+    function find_record_by_id($reserveation_id) {
         global $db;
 
         $sql = "SELECT * FROM cus_room ";
-        $sql .= "WHERE customer_id='" . db_escape($db, $customer_id) . "';";
+        $sql .= "WHERE reserveation_id='" . db_escape($db, $reserveation_id) . "';";
         // echo $sql;
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);
@@ -704,10 +707,9 @@ function find_organization_by_id($spon_id){
 
     function find_invoice_by_customer_id($customer) {
         global $db;
-
         $sql = "SELECT * FROM invoice ";
-        $sql .= "WHERE customer_id='" . db_escape($db, $customer['customer_id']) . "'";
-        // echo $sql;
+        $sql .= "WHERE ren_id IN (SELECT ren_id from cus_rental WHERE customer_id='" . db_escape($db, $customer['customer_id']) . "');";
+//        echo $sql;
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);
         return $result;
@@ -760,11 +762,11 @@ function update_customer($customer) {
     $sql = "UPDATE customer SET ";
     $sql .= "first_name='" . db_escape($db, $customer['first_name']) . "', ";
     $sql .= "last_name='" . db_escape($db, $customer['last_name']) . "', ";
-    $sql .= "password='" . db_escape($db, $customer['password']) . "',";
+    $sql .= "cus_pass='" . db_escape($db, $customer['password']) . "',";
     $sql .= "phone='" . db_escape($db, $customer['phone']) . "',";
     $sql .= "email='" . db_escape($db, $customer['email']) . "',";
     $sql .= "id_type='" . db_escape($db, $customer['id_type']) . "',";
-    $sql .= "id_num='" . db_escape($db, $customer['id_num']) . "'";
+    $sql .= "id_number='" . db_escape($db, $customer['id_number']) . "'";
     $sql .= "WHERE customer_id='" . db_escape($db, $customer['customer_id']) . "' ";
     $sql .= "LIMIT 1";
 
@@ -877,9 +879,10 @@ function update_cus_room($cus_room){
     $sql = "UPDATE cus_room SET ";
     $sql .= "room_id='" . db_escape($db, $cus_room['room_id']) . "', ";
     $sql .= "timeslot='" . db_escape($db, $cus_room['timeslot']) . "',";
-    $sql .= "WHERE customer_id='" . db_escape($db, $cus_room['customer_id']) . "' ";
-    $sql .= "LIMIT 1";
-
+    $sql .= "date='" . db_escape($db, $cus_room['date']) . "'";
+    $sql .= "WHERE reserveation_id='" . db_escape($db, $cus_room['reserveation_id']) . "' ";
+//    $sql .= "LIMIT 1";
+    print_r($sql);
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
@@ -973,13 +976,13 @@ function delete_organization($spon_id){
     }
 }
 
-function delete_cus_room($customer_id){
+function delete_cus_room($reserveation_id){
     global $db;
 
 
     $sql = "DELETE FROM cus_room ";
-    $sql .= "WHERE $customer_id='" . db_escape($db, $customer_id) . "' ";
-    $sql .= "LIMIT 1";
+    $sql .= "WHERE $reserveation_id='" . db_escape($db, $reserveation_id) . "' ";
+//    $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
 
 
@@ -1049,9 +1052,9 @@ function delete_cus_room($customer_id){
     function find_semi_aur_by_id($aur_id){
         global $db;
 
-        $sql = "SELECT * FROM semi_aur ";
-        $sql .= "WHERE $aur_id='" . db_escape($db, $aur_id) . "';";
-        // echo $sql;
+        $sql = "SELECT * FROM semi_author ";
+        $sql .= "WHERE aur_id='" . db_escape($db, $aur_id) . "';";
+//        echo $sql;
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);
         return $result;
@@ -1074,7 +1077,7 @@ function delete_cus_room($customer_id){
         global $db;
 
         $sql = "SELECT * FROM aur_book ";
-        $sql .= "WHERE $aur_id='" . db_escape($db, $aur_id) . "';";
+        $sql .= "WHERE aur_id='" . db_escape($db, $aur_id) . "';";
         // echo $sql;
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);

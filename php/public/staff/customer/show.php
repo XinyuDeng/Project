@@ -7,11 +7,11 @@ $customer = find_customer_by_id($customer_id);
 
 $booklist = find_record_by_customer($customer);
 
-$invoice = find_invoice_by_customer_id($customer_id);
+$invoice = find_invoice_by_customer_id($customer);
 
 $balance = get_balance($customer);
 ?>
-
+<?php //print_r($invoice); ?>
 <?php $page_title = 'Show Customer'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
@@ -19,7 +19,7 @@ $balance = get_balance($customer);
 
     <div class="Customer show">
 
-        <h1>Customer: <?php echo h($customer['first_name']);echo " "; echo h($customer['last_name']); ?></h1>
+        <h1>Dear Customer: <?php echo h($customer['first_name']);echo " "; echo h($customer['last_name']); ?></h1>
 
         <div class="attributes">
             <dl>
@@ -30,14 +30,14 @@ $balance = get_balance($customer);
                 <dt>Email:</dt>
                 <dd><?php echo h($customer['email']); ?></dd>
             </dl>
-            <dl>
-                <dt>ID_type:</dt>
-                <dd><?php echo h($customer['id_type']); ?></dd>
-            </dl>
-            <dl>
-                <dt>ID_num:</dt>
-                <dd><?php echo h($customer['id_num']); ?></dd>
-            </dl>
+<!--            <dl>-->
+<!--                <dt>ID_type:</dt>-->
+<!--                <dd>--><?php //echo h($customer['id_type']); ?><!--</dd>-->
+<!--            </dl>-->
+<!--            <dl>-->
+<!--                <dt>ID_num:</dt>-->
+<!--                <dd>--><?php //echo h($customer['id_num']); ?><!--</dd>-->
+<!--            </dl>-->
         </div>
 
     </div>
@@ -48,38 +48,38 @@ $balance = get_balance($customer);
 
     <table class="list">
         <tr>
-            <th>customer_id</th>
-            <th>room_id</th>
-            <th>date</th>
-            <th>timeslot</th>
+<!--            <th>Customer_id</th>-->
+            <th>Room_id</th>
+            <th>Date</th>
+            <th>Timeslot</th>
             <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
 
         <?php while($record = mysqli_fetch_assoc($booklist)) { ?>
             <tr>
-                <td><?php echo h($record['customer_id']); ?></td>
+<!--                <td>--><?php //echo h($record['customer_id']); ?><!--</td>-->
                 <td><?php echo h($record['room_id']); ?></td>
                 <td><?php echo h($record['date']); ?></td>
                 <td><?php echo h($record['timeslot']); ?></td>
-                <td><a class="action" href="<?php echo url_for('/staff/services/room/edit.php?id=' . h(u($record['customer_id']))); ?>">Edit</a></td>
-                <td><a class="action" href="<?php echo url_for('/staff/services/room/delete.php?id=' . h(u($record['customer_id']))); ?>">Delete</a></td>
+                <td><a class="action" href="<?php echo url_for('/staff/services/room/edit.php?id=' . h(u($record['reserveation_id']))); ?>">Edit</a></td>
+                <td><a class="action" href="<?php echo url_for('/staff/services/room/delete.php?id=' . h(u($record['reserveation_id']))); ?>">Cancel</a></td>
             </tr>
         <?php } ?>
 
     </table>
 
     <ul>
-        <li><a href="<?php echo url_for('/staff/services/room/create.php'); ?>">Book Room</a></li>
+        <li><a href="<?php echo url_for('/staff/services/room/new.php?id=' . h(u($customer_id))); ?>">Book Room</a></li>
     </ul>
 
     <table class="list">
         <tr>
-            <th>invoice_id</th>
-            <th>ren_id</th>
-            <th>invoice_date</th>
-            <th>invoice_amount</th>
-            <th>&nbsp;</th>
+            <th>Invoice_id</th>
+            <th>Rental_id</th>
+            <th>Invoice_date</th>
+            <th>Invoice_amount</th>
+<!--            <th>&nbsp;</th>-->
         </tr>
 
         <?php while($record_inv = mysqli_fetch_assoc($invoice)) { ?>
@@ -88,8 +88,8 @@ $balance = get_balance($customer);
                 <td><?php echo h($record_inv['ren_id']); ?></td>
                 <td><?php echo h($record_inv['invoice_date']); ?></td>
                 <td><?php echo h($record_inv['invoice_amount']); ?></td>
-                <td><a class="action" href="<?php echo url_for('/invoice/show.php?id='
-                        . h(u($record_inv['invoice_id']))); ?>">View</a></td>
+<!--                <td><a class="action" href="--><?php //echo url_for('/invoice/show.php?id='
+//                        . h(u($record_inv['invoice_id']))); ?><!--">View</a></td>-->
             </tr>
         <?php } ?>
     </table>
@@ -98,9 +98,9 @@ $balance = get_balance($customer);
         <dt>Payment Due:</dt>
         <dd><?php echo "$"; echo h($balance); ?></dd>
     </dl>
-    <ul>
-        <li><a href="<?php echo url_for('/payment/new.php'); ?>">Make a Payment</a></li>
-    </ul>
+<!--    <ul>-->
+<!--        <li><a href="--><?php //echo url_for('/payment/new.php'); ?><!--">Make a Payment</a></li>-->
+<!--    </ul>-->
 
 </div>
 

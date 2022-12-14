@@ -1,6 +1,6 @@
 <?php
 require_once('../../../../private/initialize.php');
-
+$customer_id = $_GET['id'];
 if(is_post_request()) {
     $cus_room = [];
     $cus_room['customer_id'] = $_POST['customer_id'] ?? '';
@@ -11,7 +11,8 @@ if(is_post_request()) {
     $result = insert_cus_room($cus_room);
 
     if ($result === true) {
-        redirect_to(url_for('/staff/services/room/show.php?id=' . h(u($cus_room['customer_id']))));
+//        redirect_to(url_for('/staff/services/room/show.php?id=' . h(u($cus_room['customer_id']))));
+        redirect_to(url_for('/staff/customer/show.php?id=' . h(u($cus_room['customer_id']))));
     } else {
         $errors = $result;
     }
@@ -21,7 +22,7 @@ if(is_post_request()) {
     $cus_room['customer_id'] = $_POST['customer_id'] ?? '';
     $cus_room['room_id'] = $_POST['room_id'] ?? '';
     $cus_room['timeslot'] = $_POST['timeslot'] ?? '';
-    $cus_room['date'] = $_POST['date'] ?? '';
+    $cus_room['date'] = '2022-12-14';
 }
 
 
@@ -44,7 +45,7 @@ if(is_post_request()) {
             <form action="<?php echo url_for('/staff/services/room/new.php'); ?>" method="post">
                 <dl>
                     <dt>Customer_id:</dt>
-                    <dd><input type="text" name="customer_id" value="<?php echo h($cus_room['customer_id']); ?>" /></dd>
+                    <dd><input type="text" name="customer_id" value="<?php echo h($customer_id); ?> " readonly/></dd>
                 </dl>
                 <dl>
                     <dt>Room_id:</dt>

@@ -65,7 +65,7 @@ mysqli_free_result($author_set);
                 </dl>
                 <dl>
                     <dt>Set Password:</dt>
-                    <dd><input type="text" name="password" value="<?php echo h($author['password']); ?>" /></dd>
+                    <dd><input type="password" name="password" value="<?php echo h($author['password']); ?>" /></dd>
                 </dl>
                 <dl>
                     <dt>Street:</dt>

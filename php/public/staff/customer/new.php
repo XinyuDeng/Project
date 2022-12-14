@@ -7,11 +7,11 @@ if (is_post_request()) {
     $customer = [];
     $customer['first_name'] = $_POST['first_name'] ?? '';
     $customer['last_name'] = $_POST['last_name'] ?? '';
-    $customer['password'] = $_POST['password'] ?? '';
+    $customer['cus_pass'] = $_POST['password'] ?? '';
     $customer['phone'] = $_POST['phone'] ?? '';
     $customer['email'] = $_POST['email'] ?? '';
     $customer['id_type'] = $_POST['id_type'] ?? '';
-    $customer['id_num'] = $_POST['id_num'] ?? '';
+    $customer['id_number'] = $_POST['id_num'] ?? '';
 
     $result = insert_customer($customer);
     if($result === true) {
@@ -29,11 +29,11 @@ if (is_post_request()) {
     $customer = [];
     $customer['first_name'] = $_POST['first_name'] ?? '';
     $customer['last_name'] = $_POST['last_name'] ?? '';
-    $customer['password'] = $_POST['password'] ?? '';
+    $customer['cus_pass'] = $_POST['password'] ?? '';
     $customer['phone'] = $_POST['phone'] ?? '';
     $customer['email'] = $_POST['email'] ?? '';
     $customer['id_type'] = $_POST['id_type'] ?? '';
-    $customer['id_num'] = $_POST['id_num'] ?? '';
+    $customer['id_number'] = $_POST['id_num'] ?? '';
 }
 
 $customer_set = find_all_customer();
@@ -63,7 +63,7 @@ mysqli_free_result($customer_set);
                 </dl>
                 <dl>
                     <dt>Set Password:</dt>
-                    <dd><input type="text" name="password" value="<?php echo h($customer['password']); ?>" /></dd>
+                    <dd><input type="password" name="password" value="<?php echo h($customer['cus_pass']); ?>" /></dd>
                 </dl>
                 <dl>
                     <dt>Phone:</dt>
@@ -79,7 +79,7 @@ mysqli_free_result($customer_set);
                 </dl>
                 <dl>
                     <dt>ID_num:</dt>
-                    <dd><input type="text" name="id_num" value="<?php echo h($customer['id_num']); ?>" /></dd>
+                    <dd><input type="text" name="id_num" value="<?php echo h($customer['id_number']); ?>" /></dd>
                 </dl>
                 <div id="operations">
                     <input type="submit" value="Create customer" />

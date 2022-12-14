@@ -7,7 +7,7 @@ $record = find_record_by_id($id);
 
 ?>
 
-<?php $page_title = 'Show Shop Record'; ?>
+<?php $page_title = 'Room'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
     <div id="content">
@@ -16,8 +16,8 @@ $record = find_record_by_id($id);
 -->
         <div class="Customer show">
 
-            <h1>Customer_id: <?php echo h($record['customer_id']); ?></h1>
-
+<!--            <h1>Customer_id: --><?php //echo h($record['customer_id']); ?><!--</h1>-->
+            <h2>Room Booked Successfully!</h2>
             <div class="attributes">
                 <dl>
                     <dt>Room_id:</dt>
@@ -35,9 +35,9 @@ $record = find_record_by_id($id);
 
         </div>
         <ul>
-            <li><a href="<?php echo url_for('/staff/services/room/new.php?id=' . h($record['id'])); ?>">Keep Booking</a></li>
-            <li><a href="<?php echo url_for('/staff/services/room/edit.php?id=' . h($record['id'])); ?>">Edit</a></li>
-            <li><a href="<?php echo url_for('/staff/services/room/delete.php?id=' . h($record['id'])); ?>">Delete</a></li>
+            <li><a href="<?php echo url_for('/staff/services/room/new.php?id=' . h($record['customer_id'])); ?>">Keep Booking</a></li>
+            <li><a href="<?php echo url_for('/staff/services/room/edit.php?id=' . h($record['customer_id'])); ?>">Edit</a></li>
+            <li><a href="<?php echo url_for('/staff/services/room/delete.php?id=' . h($record['customer_id'])); ?>">Delete</a></li>
         </ul>
 
     </div>

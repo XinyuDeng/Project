@@ -1,5 +1,5 @@
 <footer>
-  &copy; <?php echo date('Y'); ?> SAFE FLY MANAGEMENT EXCELLENCE
+  &copy; <?php echo date('Y'); ?> READ, EDIFY, AND LEARN
 </footer>
 
 </body>

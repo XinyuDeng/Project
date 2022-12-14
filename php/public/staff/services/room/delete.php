@@ -5,15 +5,16 @@ require_once('../../../../private/initialize.php');
 if(!isset($_GET['id'])) {
     redirect_to(url_for('/staff/services/room/index.php'));
 }
-$customer_id = $_GET['id'];
+$reserveation_id = $_GET['id'];
 
 if(is_post_request()) {
 
-    $result = delete_cus_room($customer_id);
-    redirect_to(url_for('/staff/services/room/index.php'));
+    $record = find_record_by_id($reserveation_id);
+    $result = delete_cus_room($reserveation_id);
+    redirect_to(url_for('/staff/customer/show.php?id=' . h($record['customer_id'])));
 
 } else {
-    $record = find_record_by_id($customer_id);
+    $record = find_record_by_id($reserveation_id);
 }
 
 ?>
@@ -23,11 +24,13 @@ if(is_post_request()) {
 
 <div id="content">
     <div class="cus_room delete">
-        <h1>Delete Shopping Record</h1>
-        <p>Are you sure you want to delete this book record?</p>
-        <p class="item"><?php echo h($record['room_id']); ?></p>
+        <h1>Cancel Room Reservation</h1>
+        <p>Are you sure you want to cancel this room reservation?</p>
+        <p class="item">Room ID: <?php echo h($record['room_id']); ?></p>
+        <p class="item">Date: <?php echo h($record['date']); ?></p>
+        <p class="item">Timeslot: <?php echo h($record['timeslot']); ?></p>
 
-        <form action="<?php echo url_for('/staff/services/room//delete.php?id=' . h(u($record['$customer_id']))); ?>" method="post">
+        <form action="<?php echo url_for('/staff/services/room/delete.php?id=' . h(u($reserveation_id))); ?>" method="post">
             <div id="operations">
                 <input type="submit" name="commit" value="Delete record" />
             </div>
