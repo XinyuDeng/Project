@@ -6,12 +6,14 @@ CREATE TABLE manager (
     man_pass varchar(30) NOT NULL
 );
 
+/*
 DROP TABLE IF EXISTS manager_hash;
 CREATE TABLE manager_hash (
 	user_name VARCHAR(20) NOT NULL,
     man_pass varchar(30) NOT NULL,
     man_hash varchar(60) NOT NULL
 );
+*/
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS author;
@@ -64,15 +66,6 @@ CREATE TABLE copy (
 );
 -- ALTER TABLE copy ADD CONSTRAINT copy_pk PRIMARY KEY ( copy_id );
 
--- SQLINES LICENSE FOR EVALUATION USE ONLY
-DROP TABLE IF EXISTS cus_exhi;
-CREATE TABLE cus_exhi (
-	registration_id BIGINT NOT NULL auto_increment,
-	customer_id BIGINT NOT NULL,
-	event_id   BIGINT NOT NULL,
-    primary key (registration_id)
-);
--- ALTER TABLE cus_exhi ADD CONSTRAINT cus_exhi_pk PRIMARY KEY ( registration_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS customer;
@@ -129,9 +122,9 @@ CREATE TABLE semi (
 -- ALTER TABLE semi ADD CONSTRAINT semi_pk PRIMARY KEY ( event_id );
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
-DROP TABLE IF EXISTS sponsor;
+DROP TABLE IF EXISTS indi, org, sponsor;
 CREATE TABLE sponsor (
-    spon_id   BIGINT NOT NULL,
+    spon_id   BIGINT NOT NULL auto_increment,
     spon_type VARCHAR(1) NOT NULL,
     primary key (spon_id)
 );
@@ -143,7 +136,7 @@ ALTER TABLE sponsor
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS indi;
 CREATE TABLE indi (
-    spon_id BIGINT auto_increment,
+    spon_id BIGINT NOT NULL,
     fname   VARCHAR(15) NOT NULL,
     lname   VARCHAR(15) NOT NULL,
     password VARCHAR(30) NOT NULL,
@@ -161,7 +154,7 @@ CREATE TABLE indi_hash (
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS org;
 CREATE TABLE org (
-    spon_id BIGINT auto_increment,
+    spon_id BIGINT NOT NULL,
     name    VARCHAR(30) NOT NULL,
     password VARCHAR(30) NOT NULL,
     primary key (spon_id)
@@ -248,9 +241,19 @@ CREATE TABLE cus_room (
 -- ALTER TABLE cus_room ADD CONSTRAINT cus_room_pk PRIMARY KEY (`DATE`, timeslot, room_id);
 
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
+DROP TABLE IF EXISTS cus_exhi;
+CREATE TABLE cus_exhi (
+	registration_id BIGINT NOT NULL auto_increment,
+	customer_id BIGINT NOT NULL,
+	event_id   BIGINT NOT NULL,
+    primary key (registration_id)
+);
+-- ALTER TABLE cus_exhi ADD CONSTRAINT cus_exhi_pk PRIMARY KEY ( registration_id );
+
+-- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS semi_author;
 CREATE TABLE semi_author (
-	invitation_id DECIMAL(20) NOT NULL,
+	invitation_id BIGINT NOT NULL auto_increment,
     event_id BIGINT NOT NULL,
     aur_id BIGINT NOT NULL,
     primary key(invitation_id)
@@ -266,96 +269,100 @@ CREATE TABLE semi_spon (
     primary key (event_id, spon_id)
 );
 
-/*
-ALTER TABLE aur_book
-    ADD CONSTRAINT author_book_author_fk FOREIGN KEY ( aur_id )
-        REFERENCES author ( aur_id )
-            ON DELETE CASCADE;
-
-ALTER TABLE aur_book
-    ADD CONSTRAINT author_book_book_fk FOREIGN KEY ( book_id )
-        REFERENCES book ( book_id )
-            ON DELETE CASCADE;
 
 ALTER TABLE copy
     ADD CONSTRAINT copy_book_fk FOREIGN KEY ( book_id )
         REFERENCES book ( book_id )
+		ON DELETE CASCADE;
+-- not working
+ALTER TABLE aur_book
+    ADD CONSTRAINT author_book_author_fk FOREIGN KEY ( aur_id )
+        REFERENCES author ( aur_id )
             ON DELETE CASCADE;
-
-ALTER TABLE cus_exhi
-    ADD CONSTRAINT cus_exhi_customer_fk FOREIGN KEY ( customer_id )
-        REFERENCES customer ( customer_id )
+-- not working
+ALTER TABLE aur_book
+    ADD CONSTRAINT author_book_book_fk FOREIGN KEY ( book_id )
+        REFERENCES book ( book_id )
             ON DELETE CASCADE;
+            
+ALTER TABLE indi
+    ADD CONSTRAINT indi_sponsor_fk FOREIGN KEY ( spon_id )
+        REFERENCES sponsor ( spon_id )
+        ON DELETE CASCADE;
 
-ALTER TABLE cus_exhi
-    ADD CONSTRAINT cus_exhi_exhi_fk FOREIGN KEY ( event_id )
-        REFERENCES exhi ( event_id )
-            ON DELETE CASCADE;
+ALTER TABLE org
+    ADD CONSTRAINT org_sponsor_fk FOREIGN KEY ( spon_id )
+        REFERENCES sponsor ( spon_id )
+        ON DELETE CASCADE;
 
-ALTER TABLE cus_rental
-    ADD CONSTRAINT cus_rental_copy_fk FOREIGN KEY ( copy_id )
-        REFERENCES copy ( copy_id );
-
-ALTER TABLE cus_rental
-    ADD CONSTRAINT cus_rental_customer_fk FOREIGN KEY ( customer_id )
-        REFERENCES customer ( customer_id )
-            ON DELETE CASCADE;
-/*
-ALTER TABLE cus_rental
-    ADD CONSTRAINT cus_rental_invoice_fk FOREIGN KEY ( invoice_id )
-        REFERENCES invoice ( invoice_id ); */
-/*
 ALTER TABLE cus_room
     ADD CONSTRAINT cus_room_customer_fk FOREIGN KEY ( customer_id )
         REFERENCES customer ( customer_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE cus_room
     ADD CONSTRAINT cus_room_room_fk FOREIGN KEY ( room_id )
         REFERENCES room ( room_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
-ALTER TABLE exhi
-    ADD CONSTRAINT exhi_event_fk FOREIGN KEY ( event_id )
-        REFERENCES event ( event_id );
-
-ALTER TABLE indi
-    ADD CONSTRAINT indi_sponsor_fk FOREIGN KEY ( spon_id )
-        REFERENCES sponsor ( spon_id );
-
--- ALTER TABLE invoice
---     ADD CONSTRAINT invoice_cus_rental_fk FOREIGN KEY ( ren_id )
---         REFERENCES cus_rental ( ren_id );
-
-ALTER TABLE org
-    ADD CONSTRAINT org_sponsor_fk FOREIGN KEY ( spon_id )
-        REFERENCES sponsor ( spon_id );
+ALTER TABLE invoice
+    ADD CONSTRAINT invoice_cus_rental_fk FOREIGN KEY ( ren_id )
+		REFERENCES cus_rental ( ren_id )
+		ON DELETE CASCADE;
 
 ALTER TABLE payment
     ADD CONSTRAINT payment_invoice_fk FOREIGN KEY ( invoice_id )
         REFERENCES invoice ( invoice_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
-ALTER TABLE semi_author
-    ADD CONSTRAINT semi_author_author_fk FOREIGN KEY ( aur_id )
-        REFERENCES author ( aur_id )
-            ON DELETE CASCADE;
+ALTER TABLE cus_rental
+    ADD CONSTRAINT cus_rental_copy_fk FOREIGN KEY ( copy_id )
+        REFERENCES copy ( copy_id )
+		ON DELETE CASCADE;
 
-ALTER TABLE semi_author
-    ADD CONSTRAINT semi_author_semi_fk FOREIGN KEY ( event_id )
-        REFERENCES semi ( event_id )
-            ON DELETE CASCADE;
+ALTER TABLE cus_rental
+    ADD CONSTRAINT cus_rental_customer_fk FOREIGN KEY ( customer_id )
+        REFERENCES customer ( customer_id )
+		ON DELETE CASCADE;
 
+ALTER TABLE exhi
+    ADD CONSTRAINT exhi_event_fk FOREIGN KEY ( event_id )
+        REFERENCES event ( event_id )
+        ON DELETE CASCADE;
+        
 ALTER TABLE semi
     ADD CONSTRAINT semi_event_fk FOREIGN KEY ( event_id )
-        REFERENCES event ( event_id );
+        REFERENCES event ( event_id )
+        ON DELETE CASCADE;
+
+-- not working
+ALTER TABLE cus_exhi
+    ADD CONSTRAINT cus_exhi_customer_fk FOREIGN KEY ( customer_id )
+        REFERENCES customer ( customer_id )
+		ON DELETE CASCADE;
+
+-- not working
+ALTER TABLE cus_exhi
+    ADD CONSTRAINT cus_exhi_exhi_fk FOREIGN KEY ( event_id )
+        REFERENCES exhi ( event_id )
+		ON DELETE CASCADE;
 
 ALTER TABLE semi_spon
     ADD CONSTRAINT semi_spon_semi_fk FOREIGN KEY ( event_id )
         REFERENCES semi ( event_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
 
 ALTER TABLE semi_spon
     ADD CONSTRAINT semi_spon_sponsor_fk FOREIGN KEY ( spon_id )
         REFERENCES sponsor ( spon_id )
-            ON DELETE CASCADE;*/
+		ON DELETE CASCADE;
+
+ALTER TABLE semi_author
+    ADD CONSTRAINT semi_author_author_fk FOREIGN KEY ( aur_id )
+        REFERENCES author ( aur_id )
+		ON DELETE CASCADE;
+
+ALTER TABLE semi_author
+    ADD CONSTRAINT semi_author_semi_fk FOREIGN KEY ( event_id )
+        REFERENCES semi ( event_id )
+		ON DELETE CASCADE;
