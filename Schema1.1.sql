@@ -232,11 +232,12 @@ CREATE TABLE room (
 -- SQLINES LICENSE FOR EVALUATION USE ONLY
 DROP TABLE IF EXISTS cus_room;
 CREATE TABLE cus_room (
-    `DATE`          DATETIME NOT NULL,
+	reserveation_id BIGINT NOT NULL AUTO_INCREMENT,
+    date          DATETIME NOT NULL,
     timeslot        TINYINT NOT NULL,
     room_id    BIGINT NOT NULL,
     customer_id BIGINT NOT NULL,
-    primary key (`DATE`, timeslot, room_id)
+    primary key (reserveation_id)
 );
 -- ALTER TABLE cus_room ADD CONSTRAINT cus_room_pk PRIMARY KEY (`DATE`, timeslot, room_id);
 
@@ -364,3 +365,4 @@ ALTER TABLE semi_author
     ADD CONSTRAINT semi_author_semi_fk FOREIGN KEY ( event_id )
         REFERENCES semi ( event_id )
 		ON DELETE CASCADE;
+

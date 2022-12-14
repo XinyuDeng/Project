@@ -15,7 +15,7 @@ select * from customer;
 insert into ROOM (capacity) values(210), (340), (800), (50), (60), (54), (81), (93), (102), (62);
 select * from room;
 
-insert into cus_room values
+insert into cus_room (date, timeslot, room_id, customer_id) values 
 	(STR_TO_DATE('06-23-2021 14,00,00', '%m-%d-%Y %H,%i,%s'), 1, 1, 1),
 	(STR_TO_DATE('10-23-2021 14,00,00', '%m-%d-%Y %H,%i,%s'), 2, 2, 2),
 	(STR_TO_DATE('06-23-2021 14,00,00', '%m-%d-%Y %H,%i,%s'), 3, 3, 3),
@@ -284,10 +284,4 @@ SELECT * FROM semi;
 */
 
 INSERT INTO manager VALUES ('admin', 'password');
-
-
-
-
-
-
 
