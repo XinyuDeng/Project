@@ -278,12 +278,12 @@ ALTER TABLE copy
 ALTER TABLE aur_book
     ADD CONSTRAINT author_book_author_fk FOREIGN KEY ( aur_id )
         REFERENCES author ( aur_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
 -- not working
 ALTER TABLE aur_book
     ADD CONSTRAINT author_book_book_fk FOREIGN KEY ( book_id )
         REFERENCES book ( book_id )
-            ON DELETE CASCADE;
+		ON DELETE CASCADE;
             
 ALTER TABLE indi
     ADD CONSTRAINT indi_sponsor_fk FOREIGN KEY ( spon_id )
@@ -335,13 +335,11 @@ ALTER TABLE semi
         REFERENCES event ( event_id )
         ON DELETE CASCADE;
 
--- not working
 ALTER TABLE cus_exhi
     ADD CONSTRAINT cus_exhi_customer_fk FOREIGN KEY ( customer_id )
         REFERENCES customer ( customer_id )
 		ON DELETE CASCADE;
 
--- not working
 ALTER TABLE cus_exhi
     ADD CONSTRAINT cus_exhi_exhi_fk FOREIGN KEY ( event_id )
         REFERENCES exhi ( event_id )

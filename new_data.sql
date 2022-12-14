@@ -69,7 +69,7 @@ insert into book (book_name, topic) values
     ('Border Of Destruction', 'arts');
 select * from book;
 
-insert into aur_book values(1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10);
+insert into aur_book (aur_id, book_id) values (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7), (8,8), (9,9), (10,10);
 select * from aur_book;
 
 /*
@@ -92,9 +92,6 @@ insert into copy (status, book_id) values
     ('AVAILABLE', 8),
     ('RENTED', 10);
 select * from copy;
-/*
-test for 
-*/
 
 insert into cus_rental (customer_id, copy_id, ren_status, star_date, expe_date, ret_date) values
 	(1, 1, 'RENTING', STR_TO_DATE('06-23-2021 14,00,00', '%m-%d-%Y %H,%i,%s'), STR_TO_DATE('07-23-2021 14,00,00', '%m-%d-%Y %H,%i,%s'), null), 
@@ -218,27 +215,19 @@ select * from semi;
 DELETE FROM `event` WHERE event_id = 1;
 DELETE FROM `event` WHERE event_id = 3;
 */
--- SQLINES LICENSE FOR EVALUATION USE ONLY
-DROP TABLE IF EXISTS semi_spon;
-CREATE TABLE semi_spon (
-    event_id   BIGINT NOT NULL,
-    spon_id BIGINT NOT NULL,
-    amount       DECIMAL(20) NOT NULL,
-    primary key (event_id, spon_id)
-);
--- ALTER TABLE cus_exhi ADD CONSTRAINT cus_exhi_pk PRIMARY KEY ( registration_id );
+
 INSERT INTO cus_exhi (customer_id, event_id) VALUES 
-	(1, 2),
-	(2, 4),
+	(1, 1),
+	(2, 1),
+	(3, 2),
+	(4, 2),
 	(5, 5),
-	(6, 6),
-	(9, 5),
-	(1, 6),
-	(2, 7),
-	(5, 8),
-	(6, 9),
-	(9, 10),
-	(1, 2);
+	(6, 5),
+	(7, 6),
+	(8, 6),
+	(9, 9),
+	(10, 9),
+	(11, 9);
 select * from cus_exhi;
 /*
 #test for cus_exhi_customer_fk and cus_exhi_exhi_fk
